@@ -1,11 +1,107 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// src/pages/index.astro
+import ProductCard from '../components/ProductCard.astro';
+import ContactForm from '../components/ContactForm.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const products = [
+  {
+    title: "Chunky Knit Beanie",
+    description: "Keep warm with this 100% merino wool chunky beanie. Available in multiple colors.",
+    imageUrl: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=600", 
+    buyLink: "#"
+  },
+  {
+    title: "Amigurumi Little Bee",
+    description: "A tiny, adorable crochet bee. Perfect as a desk buddy or keychain.",
+    imageUrl: "https://images.unsplash.com/photo-1628036087754-080bf59a11a8?auto=format&fit=crop&q=80&w=600",
+    buyLink: "#"
+  }
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cozy Stitches | Crochet Store</title>
+  </head>
+  <body>
+    <header class="hero">
+      <h1>Cozy Stitches</h1>
+      <p>Handmade crochet goods to keep you warm and happy.</p>
+    </header>
+    
+    <main>
+      <div class="product-grid">
+        {products.map((product) => (
+          <ProductCard 
+            title={product.title}
+            description={product.description}
+            imageUrl={product.imageUrl}
+            buyLink={product.buyLink}
+          />
+        ))}
+      </div>
+
+      <ContactForm />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  /* --- GLOBAL MODERN THEME --- */
+  :root {
+    --bg-color: #faf9f6; /* Soft off-white */
+    --text-main: #2d3748; /* Soft black */
+    --text-muted: #718096; /* Gray */
+    --accent: #8ba888; /* Sage green */
+    --accent-hover: #718c6f; /* Darker sage */
+    --card-bg: #ffffff;
+    --radius: 12px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+
+  /* Grid Layout */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+</style>

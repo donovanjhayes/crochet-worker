@@ -1,22 +1,18 @@
 ---
-// src/pages/index.astro
 import ProductCard from '../components/ProductCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 
-const products = [
-  {
-    title: "Chunky Knit Beanie",
-    description: "Keep warm with this 100% merino wool chunky beanie. Available in multiple colors.",
-    imageUrl: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=600", 
-    buyLink: "#"
-  },
-  {
-    title: "Amigurumi Little Bee",
-    description: "A tiny, adorable crochet bee. Perfect as a desk buddy or keychain.",
-    imageUrl: "https://images.unsplash.com/photo-1628036087754-080bf59a11a8?auto=format&fit=crop&q=80&w=600",
-    buyLink: "#"
-  }
-];
+// 1. Fetch the live data from your SonicJS database
+// (Make sure your SonicJS server is running in another terminal window!)
+const response = await fetch('http://localhost:8787/api/collections/products/content');
+const rawData = await response.json();
+
+// 2. Extract the array of products. 
+// Headless CMSs usually wrap your items in a "data" property.
+const products = rawData.data || []; 
+
+// 3. Define the base URL for your images so Astro knows where to load them from
+const CMS_URL = 'http://localhost:8787/api/files/uploads/1ccdbeef-4740-4baf-98ef-1a04a608de63.jpeg';
 ---
 
 <html lang="en">
@@ -24,6 +20,11 @@ const products = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Cozy Stitches | Crochet Store</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <header class="hero">
@@ -37,7 +38,7 @@ const products = [
           <ProductCard 
             title={product.title}
             description={product.description}
-            imageUrl={product.imageUrl}
+            imageurl={product.imageurl}
             buyLink={product.buyLink}
           />
         ))}
@@ -51,13 +52,17 @@ const products = [
 <style is:global>
   /* --- GLOBAL MODERN THEME --- */
   :root {
-    --bg-color: #faf9f6; /* Soft off-white */
-    --text-main: #2d3748; /* Soft black */
-    --text-muted: #718096; /* Gray */
-    --accent: #8ba888; /* Sage green */
-    --accent-hover: #718c6f; /* Darker sage */
+    --bg-color: #faf9f6; 
+    --text-main: #2d3748; 
+    --text-muted: #718096; 
+    --accent: #8ba888; 
+    --accent-hover: #718c6f; 
     --card-bg: #ffffff;
     --radius: 12px;
+    
+    /* Define our new fonts */
+    --font-heading: 'Fraunces', serif;
+    --font-body: 'Inter', system-ui, sans-serif;
   }
 
   * {
@@ -67,25 +72,28 @@ const products = [
   }
 
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Apply body font to the whole page */
+    font-family: var(--font-body);
     background-color: var(--bg-color);
     color: var(--text-main);
     line-height: 1.6;
   }
 
+  /* Apply the playful serif font to all headings */
   h1, h2, h3 {
+    font-family: var(--font-heading);
     font-weight: 600;
     letter-spacing: -0.5px;
+    color: var(--text-main); /* Ensures headings pop */
   }
 
-  /* Hero Section */
   .hero {
     text-align: center;
     padding: 4rem 1rem 2rem;
   }
 
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 3.5rem; /* Made slightly larger to show off the font! */
     margin-bottom: 0.5rem;
     color: var(--accent);
   }
@@ -95,7 +103,6 @@ const products = [
     font-size: 1.1rem;
   }
 
-  /* Grid Layout */
   .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

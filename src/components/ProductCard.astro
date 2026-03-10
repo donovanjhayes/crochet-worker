@@ -1,11 +1,11 @@
 ---
 // src/components/ProductCard.astro
-const { title, description, imageurl, buyLink } = Astro.props;
+const { title, description, imageUrl, buyLink } = Astro.props;
 ---
 
 <div class="product-card">
   <div class="image-wrapper">
-    <img src={imageurl} alt={`Photo of ${title}`} class="product-image" />
+    <img src={imageUrl} alt={`Photo of ${title}`} class="product-image" />
   </div>
   <div class="product-info">
     <h3>{title}</h3>

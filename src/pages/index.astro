@@ -33,17 +33,16 @@ const CMS_URL = 'http://localhost:8787/api/files/uploads/1ccdbeef-4740-4baf-98ef
     </header>
     
     <main>
-      <div class="product-grid">
+    <div class="product-grid">
         {products.map((product) => (
           <ProductCard 
             title={product.title}
             description={product.description}
-            imageurl={product.imageurl}
+            imageUrl = 'http://localhost:8787/files/uploads/b04bf9aa-07c6-4078-94f6-b6818e6fec0a.jpeg'
             buyLink={product.buyLink}
           />
         ))}
       </div>
-
       <ContactForm />
     </main>
   </body>

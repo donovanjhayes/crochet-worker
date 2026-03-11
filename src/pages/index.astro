@@ -10,9 +10,11 @@ const rawData = await response.json();
 // 2. Extract the array of products. 
 // Headless CMSs usually wrap your items in a "data" property.
 const products = rawData.data || []; 
-
+console.log('Fetched products:', products); // Check the structure of your data in the console
 // 3. Define the base URL for your images so Astro knows where to load them from
-const CMS_URL = 'http://localhost:8787/api/files/uploads/1ccdbeef-4740-4baf-98ef-1a04a608de63.jpeg';
+const CMS_URL = 'http://localhost:8787';
+
+
 ---
 
 <html lang="en">
@@ -36,10 +38,10 @@ const CMS_URL = 'http://localhost:8787/api/files/uploads/1ccdbeef-4740-4baf-98ef
     <div class="product-grid">
         {products.map((product) => (
           <ProductCard 
-            title={product.title}
-            description={product.description}
-            imageUrl = 'http://localhost:8787/files/uploads/b04bf9aa-07c6-4078-94f6-b6818e6fec0a.jpeg'
-            buyLink={product.buyLink}
+            title={product.data.title}
+            description={product.data.description}
+            imageUrl = {CMS_URL + product.data.imageurl}
+            buyLink={product.data.buyLink}
           />
         ))}
       </div>

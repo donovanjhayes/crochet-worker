@@ -1,6 +1,8 @@
 ## To Do List for Crochet Site
  [] add correct code for not hardcoding the image link (ask Claude)
- [] use the form feature in SonicJS
+ [] use the form feature in SonicJS (currently Web3Form)
+ [] work on SEO for site
+ [] favicon update
  [] connect website to cloudflare
 
 
@@ -20,3 +22,4 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+

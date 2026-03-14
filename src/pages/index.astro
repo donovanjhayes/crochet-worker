@@ -2,7 +2,7 @@
 import ProductCard from '../components/ProductCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 
-const response = await fetch('https://my-sonicjs-app.donovanhayes.workers.dev/content/product');
+const response = await fetch('https://my-sonicjs-app.donovanhayes.workers.dev/api/collections/product/content');
 const rawData = await response.json();
 const products = rawData.data || []; //check if it works
 const CMS_URL = 'https://my-sonicjs-app.donovanhayes.workers.dev';

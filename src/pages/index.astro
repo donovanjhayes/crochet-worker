@@ -2,17 +2,20 @@
 import ProductCard from '../components/ProductCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 
-// 1. Fetch the live data from your SonicJS database
-// (Make sure your SonicJS server is running in another terminal window!)
-const response = await fetch('http://localhost:8787/api/collections/products/content');
+const response = await fetch('https://my-sonicjs-app.donovanhayes.workers.dev/content/product');
 const rawData = await response.json();
+const products = rawData.data || []; 
+const CMS_URL = 'https://my-sonicjs-app.donovanhayes.workers.dev';
+
+// 1. Fetch the live data from your SonicJS database https://crochet-worker.donovanhayes.workers.dev/ 
+// (Make sure your SonicJS server is running in another terminal window!)
+
 
 // 2. Extract the array of products. 
 // Headless CMSs usually wrap your items in a "data" property.
-const products = rawData.data || []; 
 console.log('Fetched products:', products); // Check the structure of your data in the console
 // 3. Define the base URL for your images so Astro knows where to load them from
-const CMS_URL = 'http://localhost:8787';
+
 
 
 ---
